@@ -1,0 +1,81 @@
+*{
+    background-color: rgb(182, 255, 182);
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.login{
+    background-color: #ddffe7;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 300px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top : 80px;
+}
+
+.login h1 {
+    margin-bottom: 20px;
+    color: #333;
+    background-color: #ddffe7;
+}
+
+.login h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #555;
+    background-color: #ddffe7;
+}
+
+.login i {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #555;
+    display: inline-block;
+    margin-right: 10px;
+    background-color: #ddffe7;
+}
+
+
+form i {
+    font-size: 18px;
+    margin-right: 10px;
+    color: #555;
+    background-color: #ddffe7;
+}
+
+form input[type="text"] {
+    flex: 1; /* ขยาย input เพื่อครอบคลุมพื้นที่ */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #f4fff7;
+}
+
+form input[type="text"]:focus {
+    border-color: #777;
+    outline: none;
+    background-color: #85c498;
+}
+
+form{
+    background-color: #ddffe7;
+}
+.login input[type="submit"] {
+    background-color: #6cff8f;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.login input[type="submit"]:hover {
+    background-color: #218838;
+}
