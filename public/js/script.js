@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const password = document.getElementById('password').value;
 
         errorMessage.style.display = 'none';
-        displayData.innerHTML = ''; // ล้างข้อมูลก่อน
+        displayData.style.display = 'none';
+        displayData.innerHTML = ''; 
 
         if (!username || !password) {
             errorMessage.textContent = "กรอกชื่อและรหัสผ่านให้ครบ";
@@ -36,13 +37,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (response.ok && result.success) {
                 // แสดงข้อมูลที่ได้รับจากเซิร์ฟเวอร์
+                displayData.style.display = 'block';
                 displayData.innerHTML = `
                     <p>ชื่อภาษาไทย: ${result.data.displayname_th || 'N/A'}</p>
                     <p>ชื่อภาษาอังกฤษ: ${result.data.displayname_en || 'N/A'}</p>
                     <p>อีเมล: ${result.data.email || 'N/A'}</p>
                     <p>คณะ: ${result.data.faculty || 'N/A'}</p>
                     <p>สาขาวิชา: ${result.data.department || 'N/A'}</p>
-                    <p>สถานะ: ${result.data.statusid || 'N/A'}</p>
                 `;
             } else {
                 errorMessage.textContent = result.message || 'Invalid username or password';

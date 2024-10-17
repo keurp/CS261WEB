@@ -11,6 +11,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .login {
@@ -20,6 +27,7 @@ body {
     padding: 40px;
     width: 350px;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .login h1 {
@@ -95,4 +103,33 @@ form input[type="password"]:focus {
         width: 100%;
         padding: 20px;
     }
+}
+
+#display-data {
+    display: none;
+    margin-top: 20px;
+    background-color: #ddffe7;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    color: #333;
+    width: 350px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#display-data p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555;
+}
+
+#display-data p:last-child {
+    margin-bottom: 0;
+}
+
+#display-data strong {
+    color: #333;
+    font-weight: bold;
 }

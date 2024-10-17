@@ -1,9 +1,13 @@
-const express = require('express');
-const path = require('path');
-const fetch = require('node-fetch'); // ต้องติดตั้งไลบรารี node-fetch
-const bodyParser = require('body-parser');
+import express from 'express';
+import path from 'path';
+import fetch from 'node-fetch'; // ต้องติดตั้งไลบรารี node-fetch
+import bodyParser from 'body-parser';
+import { fileURLToPath } from 'url';
 
 const app = express();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // ใช้ body-parser เพื่อแปลง request body เป็น JSON
 app.use(bodyParser.json());
