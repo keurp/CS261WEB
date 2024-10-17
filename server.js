@@ -1,17 +1,18 @@
 const express = require('express');
 const path = require('path');
+const fetch = require('node-fetch'); // ต้องติดตั้งไลบรารี node-fetch
+const bodyParser = require('body-parser');
 
 const app = express();
+
+// ใช้ body-parser เพื่อแปลง request body เป็น JSON
+app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
 
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
@@ -20,13 +21,8 @@ app.post('/login', async (req, res) => {
         return res.status(400).json({ success: false, message: 'กรุณากรอกชื่อผู้ใช้และรหัสผ่านให้ครบถ้วน' });
     }
 
-    const usernamePattern = /^[0-9]{10}$/;
-    if (!usernamePattern.test(username)) {
-        return res.status(400).json({ success: false, message: 'Username ต้องเป็นตัวเลข 10 หลัก' });
-    }
-
     try {
-        // ส่งคำขอไปยัง API
+        // ส่งคำขอไปยัง API ภายนอก
         const response = await fetch('https://restapi.tu.ac.th/api/v1/auth/Ad/verify', {
             method: "POST",
             headers: {
@@ -39,13 +35,19 @@ app.post('/login', async (req, res) => {
             })
         });
 
+        const apiResult = await response.json(); // แปลง response เป็น JSON
+
         // ตรวจสอบผลลัพธ์จาก API
-        if (response.ok) {
-            res.json({ success: true, message: 'Login successful'});
+        if (response.ok && apiResult.status) {
+            res.json({ success: true, message: 'Login successful', data: apiResult });
         } else {
-            res.status(401).json({ success: false, message: 'Invalid username or password' });
+            res.status(401).json({ success: false, message: apiResult.message || 'Invalid username or password' });
         }
     } catch (error) {
-        res.status(500).json({message:'test'});
+        console.error('Error during API call:', error);
+        res.status(500).json({ success: false, message: 'Server error. Please try again later.' });
     }
-})
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
