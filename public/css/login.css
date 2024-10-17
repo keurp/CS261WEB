@@ -1,81 +1,98 @@
-*{
-    background-color: rgb(182, 255, 182);
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(182, 255, 182);
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.login{
+.login {
     background-color: #ddffe7;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 40px;
-    width: 300px;
+    width: 350px;
     text-align: center;
-    margin: 0 auto;
-    margin-top : 80px;
 }
 
 .login h1 {
     margin-bottom: 20px;
     color: #333;
-    background-color: #ddffe7;
-}
-
-.login h2 {
-    margin-bottom: 15px;
-    font-size: 20px;
-    color: #555;
-    background-color: #ddffe7;
-}
-
-.login i {
     font-size: 24px;
-    margin-bottom: 10px;
-    color: #555;
-    display: inline-block;
-    margin-right: 10px;
-    background-color: #ddffe7;
 }
 
-
-form i {
-    font-size: 18px;
-    margin-right: 10px;
-    color: #555;
-    background-color: #ddffe7;
+form .mb-3 {
+    margin-bottom: 20px;
+    text-align: left;
 }
 
-form input[type="text"] {
-    flex: 1; /* ขยาย input เพื่อครอบคลุมพื้นที่ */
-    padding: 10px;
+form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 14px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-sizing: border-box;
     background-color: #f4fff7;
 }
 
-form input[type="text"]:focus {
-    border-color: #777;
-    outline: none;
+.input-group .input-group-text {
+    padding: 10px;
     background-color: #85c498;
+    border: none;
+    border-right: 1px solid #ccc;
+    color: white;
+    border-radius: 5px 0 0 5px;
 }
 
-form{
-    background-color: #ddffe7;
-}
-.login input[type="submit"] {
-    background-color: #6cff8f;
-    color: white;
+form input[type="text"],
+form input[type="password"] {
+    flex: 1;
     padding: 10px;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    background-color: #f4fff7;
+    font-size: 14px;
+}
+
+form input[type="text"]:focus,
+form input[type="password"]:focus {
+    border-color: #77d091;
+    outline: none;
+    background-color: #e6ffe6;
+}
+
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
-.login input[type="submit"]:hover {
-    background-color: #218838;
+.btn:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 400px) {
+    .login {
+        width: 100%;
+        padding: 20px;
+    }
 }
