@@ -1,49 +1,49 @@
 document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.querySelector('form');
     const errorMessage = document.getElementById('error-message');
-    const loadingMessage = document.getElementById('loading-message'); // เพิ่มข้อความกำลังโหลด (ต้องเพิ่มใน HTML ด้วย)
+    const displayData = document.getElementById('display-data'); // Div สำหรับแสดงผลข้อมูล
 
     loginForm.addEventListener('submit', async function (event) {
-        event.preventDefault(); 
+        event.preventDefault();
 
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
         errorMessage.style.display = 'none';
-        loadingMessage.style.display = 'block'; 
+        displayData.innerHTML = ''; // ล้างข้อมูลก่อน
 
         if (!username || !password) {
             errorMessage.textContent = "กรอกชื่อและรหัสผ่านให้ครบ";
             errorMessage.style.display = 'block';
-            loadingMessage.style.display = 'none'; 
             return;
         }
-
-        const usernamePattern = /^[0-9]{10}$/;
-        if (!usernamePattern.test(username)) {
-            errorMessage.textContent = "Username ต้องเป็นตัวเลข 10 หลัก";
-            errorMessage.style.display = 'block';
-            loadingMessage.style.display = 'none';
-            return;
-        }
+        console.log('Sending Username:', username);
+        console.log('Sending Password:', password);
 
         try {
             const response = await fetch('http://localhost:3000/login', {
                 method: 'POST',
                 headers: {
-                    'Application-Key': 'TU95bd6299e8284b5a343f13f5c22716389cac9bed383ceccce14bef13942533269da23d53820e3fc250e4cdf9bac71961',
-                    'Content-Type' : 'application/json' 
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, password }) 
+                body: JSON.stringify({ username, password })
             });
 
-            const result = await response.json(); 
-            loadingMessage.style.display = 'none';
+            const result = await response.json();
+
+            // พิมพ์ผลลัพธ์เพื่อดูโครงสร้างการตอบกลับจาก API
+            console.log('API Response:', result);
 
             if (response.ok && result.success) {
-                errorMessage.style.color = 'green';
-                errorMessage.textContent = 'Login successful!';
-                errorMessage.style.display = 'block'; 
+                // แสดงข้อมูลที่ได้รับจากเซิร์ฟเวอร์
+                displayData.innerHTML = `
+                    <p>ชื่อภาษาไทย: ${result.data.displayname_th || 'N/A'}</p>
+                    <p>ชื่อภาษาอังกฤษ: ${result.data.displayname_en || 'N/A'}</p>
+                    <p>อีเมล: ${result.data.email || 'N/A'}</p>
+                    <p>คณะ: ${result.data.faculty || 'N/A'}</p>
+                    <p>สาขาวิชา: ${result.data.department || 'N/A'}</p>
+                    <p>สถานะ: ${result.data.statusid || 'N/A'}</p>
+                `;
             } else {
                 errorMessage.textContent = result.message || 'Invalid username or password';
                 errorMessage.style.display = 'block';
@@ -51,8 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } catch (error) {
             console.error('Error during login:', error);
             errorMessage.textContent = 'Something went wrong. Please try again.';
-            errorMessage.style.display = 'block'; 
-            loadingMessage.style.display = 'none';
+            errorMessage.style.display = 'block';
         }
     });
 });
